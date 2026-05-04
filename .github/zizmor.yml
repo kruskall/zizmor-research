@@ -10,3 +10,4 @@ rules:
         elastic/*: ref-pin
         docker/*: ref-pin
         octokit/*: ref-pin
+        google-github-actions/*: ref-pin
