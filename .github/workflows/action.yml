@@ -13,6 +13,32 @@ jobs:
       contents: read # only needed for private or internal repos
       actions: read # only needed for private or internal repos
     steps:
+      - name: Install gh CLI
+        uses: cli/gh-action@v3
+        with:
+          token: ${{ secrets.ORG_PAT || github.token }}
+
+      - name: List all org repos with default branch
+        id: list
+        run: |
+          ORG=elastic
+          # Get nameWithOwner and default branch name; filter repos with no defaultBranchRef
+          gh repo list "$ORG" --limit 1000 --json nameWithOwner,defaultBranchRef -L 1000 --jq '.[] | select(.defaultBranchRef != null) | "\(.nameWithOwner)@\(.defaultBranchRef.name)"' > repos_with_ref.txt
+          # For repos missing defaultBranchRef, optionally include a fallback (skip here)
+          echo "Found $(wc -l < repos_with_ref.txt) repos with default branch"
+          # expose as multiline output
+          echo "repos<<EOF" >> $GITHUB_OUTPUT
+          cat repos_with_ref.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Debug print
+        run: |
+          echo "---- BEGIN REPOS ----"
+          printf '%s\n' "$REPOS"
+          echo "----  END REPOS  ----"
+        env:
+          REPOS: ${{ steps.list.outputs.repos }}
+
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
