@@ -9,3 +9,4 @@ rules:
         actions/*: ref-pin
         elastic/*: ref-pin
         docker/*: ref-pin
+        octokit/*: ref-pin
