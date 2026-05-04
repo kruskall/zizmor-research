@@ -11,3 +11,4 @@ rules:
         docker/*: ref-pin
         octokit/*: ref-pin
         google-github-actions/*: ref-pin
+        hashicorp/*: ref-pin
