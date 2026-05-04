@@ -13,11 +13,6 @@ jobs:
       contents: read # only needed for private or internal repos
       actions: read # only needed for private or internal repos
     steps:
-      - name: Install gh CLI
-        uses: cli/gh-action@v3
-        with:
-          token: ${{ secrets.ORG_PAT || github.token }}
-
       - name: List all org repos with default branch
         id: list
         run: |
