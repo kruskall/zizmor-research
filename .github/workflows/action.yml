@@ -25,6 +25,8 @@ jobs:
           echo "repos<<EOF" >> $GITHUB_OUTPUT
           cat repos_with_ref.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug print
         run: |
