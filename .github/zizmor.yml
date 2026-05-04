@@ -8,3 +8,4 @@ rules:
       policies:
         actions/*: ref-pin
         elastic/*: ref-pin
+        docker/*: ref-pin
