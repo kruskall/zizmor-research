@@ -24,7 +24,7 @@ jobs:
           ORG=elastic
           # Get nameWithOwner and default branch name; filter repos with no defaultBranchRef
           gh repo list "$ORG" --no-archived --limit 1000 --json nameWithOwner,defaultBranchRef -L 1000 \
-            --jq '.[] | select(.defaultBranchRef.name != "") | select(.nameWithOwner != "elastic/built-docs") | "\(.nameWithOwner)@\(.defaultBranchRef.name)"' > repos_with_ref.txt
+            --jq '.[] | select(.defaultBranchRef.name != "") | select(.nameWithOwner != "elastic/built-docs" and .nameWithOwner != "elastic/cortado") | "\(.nameWithOwner)@\(.defaultBranchRef.name)"' > repos_with_ref.txt
           # For repos missing defaultBranchRef, optionally include a fallback (skip here)
           echo "Found $(wc -l < repos_with_ref.txt) repos with default branch"
           # expose as multiline output
