@@ -10,6 +10,7 @@ rules:
         docker/*: ref-pin
         elastic/*: ref-pin
         github/*: ref-pin
+        google/*: ref-pin
         google-github-actions/*: ref-pin
         hashicorp/*: ref-pin
         octokit/*: ref-pin
