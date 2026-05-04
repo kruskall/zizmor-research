@@ -23,5 +23,5 @@ jobs:
         with:
           config: .github/zizmor.yml
           inputs: |
-            elastic/apm-server@main
+            elastic/elasticsearch@main
 
