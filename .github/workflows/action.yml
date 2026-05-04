@@ -13,6 +13,11 @@ jobs:
       contents: read # only needed for private or internal repos
       actions: read # only needed for private or internal repos
     steps:
+      - name: Check Disk Usage
+        run: |
+          df -h /
+          du -sh /* 2>/dev/null | sort -hr | head -10
+
       - name: List all org repos with default branch
         id: list
         run: |
@@ -40,6 +45,21 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+
+      - name: Clean Up Disk Space
+        run: |
+          df -h /
+          
+          # Remove unused tool caches (comment any required ones with #)
+          sudo rm -rf /usr/lib/jvm
+          sudo rm -rf /usr/local/.ghcup
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/local/share/powershell
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/share/swift
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          
+          df -h /
 
       - name: Run zizmor 🌈
         uses: zizmorcore/zizmor-action@b1d7e1fb5de872772f31590499237e7cce841e8e # v0.5.3
