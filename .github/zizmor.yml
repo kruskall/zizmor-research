@@ -1,4 +1,6 @@
 rules:
+  dependabot-cooldown:
+    disable: true
   unpinned-uses:
     config:
       policies:
